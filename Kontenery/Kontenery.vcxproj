@@ -141,6 +141,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Employee.hpp" />
     <ClInclude Include="Functions.hpp" />
     <ClInclude Include="IPv4.hpp" />
     <ClInclude Include="Types.hpp" />
