@@ -145,6 +145,7 @@
     <ClInclude Include="Functions.hpp" />
     <ClInclude Include="IPv4.hpp" />
     <ClInclude Include="RandomNumberGenerator.hpp" />
+    <ClInclude Include="SortedList.hpp" />
     <ClInclude Include="Types.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

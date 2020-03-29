@@ -10,6 +10,7 @@
 #include "Functions.hpp"
 #include "Employee.hpp"
 #include "RandomNumberGenerator.hpp"
+#include "SortedList.hpp"
 
 void zadanie1() {
 	auto localhost = IPv4({ 127, 0, 0, 1 });
@@ -123,9 +124,31 @@ void zadanie4()
 	std::cout << std::endl;
 }
 
+void zadanie5()
+{
+	SortedList<double> dubs;
+	dubs.insert(5);
+	dubs.insert(5.22);
+	dubs.insert(5.1);
+	dubs.insert(-51.1);
+	dubs.insert(0.04);
+	dubs.insert(10);
+
+	for (const auto el : dubs)
+		std::cout << el << "\t";
+	std::cout << std::endl;
+
+	dubs.insert(100);
+	auto fivePointOne = std::find(dubs.begin(), dubs.end(), 5.1);
+	dubs.erase(fivePointOne);
+
+	for (const auto el : dubs)
+		std::cout << el << "\t";
+	std::cout << std::endl;
+}
+
 int main()
 {
-
 
 	return 0;
 }
