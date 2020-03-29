@@ -1,9 +1,15 @@
 
 #include <iostream>
 #include <vector>
+#include <deque>
+#include <list>
+#include <queue>
+#include <unordered_set>
+#include <set>
 #include "IPv4.hpp"
 #include "Functions.hpp"
 #include "Employee.hpp"
+#include "RandomNumberGenerator.hpp"
 
 void zadanie1() {
 	auto localhost = IPv4({ 127, 0, 0, 1 });
@@ -56,10 +62,69 @@ void zadanie2() {
 
 }
 
+void zadanie3()
+{
+	RandomNumberGenerator<int> generator(-100, 100);
+	std::vector<int> randoms(10000);
+
+	for (auto& element : randoms)
+		element = generator.getNext();
+
+	std::priority_queue<int, std::deque<int>> dequeQueue;
+	std::priority_queue<int, std::vector<int>> vectorQueue;
+
+	auto t1 = sysclock_t::now();
+	for (auto element : randoms)
+		vectorQueue.emplace(element);
+
+	auto t2 = sysclock_t::now();
+	for (auto element : randoms)
+		dequeQueue.emplace(element);
+
+	auto t3 = sysclock_t::now();
+
+	std::cout << "\nvectorQueue time:\t\t\t" << std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count() << std::endl;
+	std::cout << "\ndequeQueue time:\t\t" << std::chrono::duration_cast<std::chrono::microseconds>(t3 - t2).count() << std::endl;
+
+	// Dodawanie elementów do std::deque jest widocznie wolniejsze ni¿ dodawanie elementow do std::vector,
+	// co rzutuje na równie¿ na czas pracy kolejki priorytetowej. 
+	// Taki stan rzeczy mo¿na uzasadniæ faktem, ¿e std::vector gwarantuje ci¹g³oœæ wykorzystywanej pamiêci,
+	// podczas gdy std::deque korzysta z wielu statycznych tablic. Dostêp do elementu std::deque oznacza wiêc
+	// dwie operacje dereferencji - nie jedn¹, jak w przypadku wektora.
+
+}
+
+void zadanie4()
+{
+
+	RandomNumberGenerator<int> rng(0, 19);
+	std::vector<int> liczbyLosowe(15);
+
+	for (auto& liczba : liczbyLosowe)
+		liczba = rng.getNext();
+
+	std::cout << "Nieposortowane:" << std::endl;
+	for (auto liczba : liczbyLosowe)
+		std::cout << liczba << "\t";
+	std::cout << std::endl;
+
+	std::unordered_set<int> liczbyLosoweBezPowtorzen(liczbyLosowe.begin(), liczbyLosowe.end());
+	std::cout << "Nieposortowane bez powtorzen:" << std::endl;
+
+	for (auto liczba : liczbyLosoweBezPowtorzen)
+		std::cout << liczba << "\t";
+	std::cout << std::endl;
+
+	std::set<int> liczbyPosortowaneBezPowtorzen(liczbyLosowe.begin(), liczbyLosowe.end());
+	std::cout << "Posortowane:" << std::endl;
+
+	for (auto liczba : liczbyPosortowaneBezPowtorzen)
+		std::cout << liczba << "\t";
+	std::cout << std::endl;
+}
+
 int main()
 {
-	zadanie1();
-	zadanie2();
 
 
 	return 0;

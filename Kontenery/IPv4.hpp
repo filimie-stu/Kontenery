@@ -31,7 +31,7 @@ public:
 
     IPv4 maskWith(const IPv4& mask) const {
         std::array<byte_t, 4> newBytes;
-        for (int i = 0; i < ipBytes_.size(); i++)
+        for (size_t i = 0; i < ipBytes_.size(); i++)
             newBytes[i] = ipBytes_.at(i) & mask.ipBytes_.at(i);
         return IPv4(newBytes);
     }
